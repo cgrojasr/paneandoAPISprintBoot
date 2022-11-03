@@ -1,5 +1,6 @@
 package edu.upc.paneando.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class PedidoFecha {
     private String diaSemana;
 
     @Column(name = "hora_minuto")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
     private Timestamp horaMinuto;
 
     @Column(name = "activo")

@@ -34,7 +34,7 @@ public class Pedido {
     @OneToMany(mappedBy = "objPedido", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<PedidoDetalle> lstPedidoDetalle = new HashSet<PedidoDetalle>();
 
-    @OneToMany(mappedBy = "objPedido")
+    @OneToMany(mappedBy = "objPedido", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<PedidoFecha> lstPedidoFecha = new HashSet<PedidoFecha>();
 
 
