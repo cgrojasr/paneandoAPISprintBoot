@@ -1,5 +1,7 @@
 package edu.upc.paneando.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -22,13 +24,15 @@ public class Producto {
     private Boolean activo;
 
     @ManyToOne
-    @JoinColumn(name = "id_tipo_producto", nullable = false, foreignKey = @ForeignKey(name = "FK_id_tipo_producto"))
+    @JoinColumn(name = "id_tipo_producto", nullable = false, foreignKey = @ForeignKey(name = "FK_producto_tipo_producto"))
     private TipoProducto objTipoProducto;
 
     @OneToMany(mappedBy = "objProducto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     Set<PedidoDetalle> lstPedidoDetalle;
 
     @OneToMany(mappedBy = "objProducto")
+    @JsonIgnore
     Set<ProductoPrecio> lstProductoPrecio;
 
     public Producto() {

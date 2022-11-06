@@ -3,6 +3,8 @@ package edu.upc.paneando.controllers;
 import edu.upc.paneando.entities.Pedido;
 import edu.upc.paneando.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,18 +17,37 @@ public class PedidoController {
     private PedidoService objPedidoService;
 
     @GetMapping
-    public List<Pedido> ListarTodo(){
-        return objPedidoService.ListarTodo();
+    public ResponseEntity<List<Pedido>> ListarTodo(){
+        try{
+            return new ResponseEntity<>(objPedidoService.ListarTodo(), HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
+        }
     }
 
     @GetMapping("/{idPedido}")
-    public Pedido BuscarPorId(@PathVariable Long idPedido){
-        return objPedidoService.BuscarPorId(idPedido);
+    public ResponseEntity<Pedido> BuscarPorId(@PathVariable Long idPedido){
+        try{
+            Pedido objPedido = objPedidoService.BuscarPorId(idPedido);
+            if(objPedido==null)
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(objPedido, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
+        }
     }
 
     @PostMapping
-    public Pedido Registrar(@RequestBody Pedido objPedido){
-        return objPedidoService.Registrar(objPedido);
+    public ResponseEntity<Pedido>  Registrar(@RequestBody Pedido objPedido){
+        try{
+            Pedido objPedidoRegistrado = objPedidoService.Registrar(objPedido);
+            if(objPedidoRegistrado.getIdPedido() == null)
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(objPedidoRegistrado, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
+        }
     }
 
     @DeleteMapping
