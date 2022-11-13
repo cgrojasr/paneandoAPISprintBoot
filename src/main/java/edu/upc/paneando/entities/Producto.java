@@ -20,11 +20,14 @@ public class Producto {
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
+    @Column(name = "image_URL")
+    private String imageURL;
+
     @Column(name = "activo", nullable = false)
     private Boolean activo;
 
     @ManyToOne
-    @JoinColumn(name = "id_tipo_producto", nullable = false, foreignKey = @ForeignKey(name = "FK_producto_tipo_producto"))
+    @JoinColumn(name = "id_tipo_producto", foreignKey = @ForeignKey(name = "FK_producto_tipo_producto"))
     private TipoProducto objTipoProducto;
 
     @OneToMany(mappedBy = "objProducto", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -38,10 +41,11 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(Long idProducto, String nombre, String descripcion, Boolean activo, TipoProducto objTipoProducto, Set<PedidoDetalle> lstPedidoDetalle, Set<ProductoPrecio> lstProductoPrecio) {
+    public Producto(Long idProducto, String nombre, String descripcion, String imageURL, Boolean activo, TipoProducto objTipoProducto, Set<PedidoDetalle> lstPedidoDetalle, Set<ProductoPrecio> lstProductoPrecio) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.imageURL = imageURL;
         this.activo = activo;
         this.objTipoProducto = objTipoProducto;
         this.lstPedidoDetalle = lstPedidoDetalle;
@@ -102,5 +106,13 @@ public class Producto {
 
     public void setLstProductoPrecio(Set<ProductoPrecio> lstProductoPrecio) {
         this.lstProductoPrecio = lstProductoPrecio;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }

@@ -1,5 +1,7 @@
 package edu.upc.paneando.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -18,6 +20,7 @@ public class TipoProducto {
     private Boolean activo;
 
     @OneToMany(mappedBy = "objTipoProducto")
+    @JsonIgnore
     private Set<Producto> lstProducto;
 
     public TipoProducto() {
