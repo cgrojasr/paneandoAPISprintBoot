@@ -1,5 +1,6 @@
 package edu.upc.paneando.controllers;
 
+import edu.upc.paneando.dto.ProductoCatalogoDTO;
 import edu.upc.paneando.entities.Producto;
 import edu.upc.paneando.services.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,6 @@ import java.util.List;
 public class ProductoController {
     @Autowired
     private ProductoService objProductoService;
-
-    @GetMapping
-    public List<Producto> ListarTodo(){
-        return objProductoService.ListarTodo();
-    }
 
     @GetMapping("/{idProducto}")
     public Producto BuscarPorId(@PathVariable Long idProducto){
@@ -58,5 +54,10 @@ public class ProductoController {
         catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
         }
+    }
+
+    @GetMapping
+    public List<ProductoCatalogoDTO> ListarCatalogo(){
+        return objProductoService.ListarCatalogo();
     }
 }

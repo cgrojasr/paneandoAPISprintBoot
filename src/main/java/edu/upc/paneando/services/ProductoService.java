@@ -1,5 +1,6 @@
 package edu.upc.paneando.services;
 
+import edu.upc.paneando.dto.ProductoCatalogoDTO;
 import edu.upc.paneando.entities.Producto;
 import edu.upc.paneando.repositories.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,13 @@ public class ProductoService {
 
     public List<Producto> BuscarPorTipoProducto(Long idTipoProducto){
         return repository.findByIdTipoProducto(idTipoProducto);
+    }
+
+    public List<ProductoCatalogoDTO> ListarCatalogo(){
+        try{
+            return repository.ListarCatalogo();
+        } catch (Exception ex){
+            throw ex;
+        }
     }
 }
